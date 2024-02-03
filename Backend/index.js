@@ -3,6 +3,7 @@ const cors = require("cors");
 const connectDB = require("./src/configs/db");
 const userRouter = require("./src/routes/user.routes");
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
 
 const app = express();
 // server
@@ -10,6 +11,7 @@ const PORT = process.env.PORT;
 
 // middlewares
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost:8008", "*"],
