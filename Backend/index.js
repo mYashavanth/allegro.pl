@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const connectDB = require("./src/configs/db");
 require("dotenv").config();
 
 const app = express();
@@ -25,7 +26,8 @@ app.get("*", (req, res) => {
     res.status(404).send("Page not found");
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, async() => {
+    await connectDB();
     console.log(`Server is running on http://localhost:${PORT}`);
 })
 
