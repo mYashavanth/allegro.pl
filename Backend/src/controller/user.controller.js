@@ -2,10 +2,45 @@ const User = require("../models/user.model");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
-const signup = async (req, res) => {
+let userData = {};
+let otp = "";
+const verify = async (req, res) => {
   try {
     const { userName, email, password, mobileNumber } = req.body;
+    userData = { userName, email, password, mobileNumber };
+    otp = Math.floor(100000 + Math.random() * 900000);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "OTP",
+      text: `Your OTP is ${otp}`,
+    };
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ msg: "OTP sent", otp: otp, userData: userData });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const signup = async (req, res) => {
+  const { userOtp } = req.body;
+  console.log({ otp, userOtp });
+  const { userName, email, password, mobileNumber } = userData;
+
+  try {
+    if (otp != userOtp) {
+      throw new Error("Invalid OTP");
+    }
     const isEmail = validator.isEmail(email);
     if (!isEmail) {
       throw new Error({ msg: "Please enter a valid email address" });
@@ -94,4 +129,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { signup, login };
+module.exports = { signup, login, verify };
