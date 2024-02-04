@@ -129,4 +129,14 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, verify };
+const logout = async (req, res) => {
+  try {
+    res.clearCookie("authToken");
+    res.clearCookie("refreshToken");
+    res.status(200).json({ msg: "Logout successful" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+}
+
+module.exports = { signup, login, verify, logout };
