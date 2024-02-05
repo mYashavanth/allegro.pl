@@ -8,9 +8,15 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Heading,
   Image,
   Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Select,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
@@ -21,6 +27,7 @@ import { HiOutlineChatAlt2 } from "react-icons/hi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BsBag, BsPerson } from "react-icons/bs";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -42,6 +49,9 @@ const Navbar = () => {
         flexDirection={{ base: "column", md: "column", lg: "row", xl: "row" }}
         gap={{ base: "0.1rem", md: "0.5rem", lg: "0", xl: "0" }}
         justifyContent={"space-between"}
+        position={"sticky"}
+        top={0}
+        zIndex={99}
       >
         <Center
           display={"flex"}
@@ -68,8 +78,36 @@ const Navbar = () => {
               <DrawerCloseButton />
               <DrawerHeader>Create your account</DrawerHeader>
 
-              <DrawerBody>
-                <Input placeholder="Type here..." />
+              <DrawerBody display={"flex"} gap={2} justifyContent={"center"}>
+                <TbTruckDelivery
+                  size={40}
+                  onClick={() => console.log("hello")}
+                  style={{ cursor: "pointer", color: "gray" }}
+                />
+
+                <IoHeartOutline
+                  size={40}
+                  onClick={() => console.log("hello")}
+                  style={{ cursor: "pointer", color: "gray" }}
+                />
+
+                <IoMdNotificationsOutline
+                  size={40}
+                  onClick={() => console.log("hello")}
+                  style={{ cursor: "pointer", color: "gray" }}
+                />
+
+                <BsBag
+                  size={35}
+                  onClick={() => console.log("hello")}
+                  style={{ cursor: "pointer", color: "gray" }}
+                />
+
+                <BsPerson
+                  size={40}
+                  onClick={() => console.log("hello")}
+                  style={{ cursor: "pointer", color: "gray" }}
+                />
               </DrawerBody>
             </DrawerContent>
           </Drawer>
@@ -132,12 +170,6 @@ const Navbar = () => {
             style={{ cursor: "pointer", color: "gray" }}
           />
 
-          <HiOutlineChatAlt2
-            size={40}
-            onClick={() => console.log("hello")}
-            style={{ cursor: "pointer", color: "gray" }}
-          />
-
           <IoMdNotificationsOutline
             size={40}
             onClick={() => console.log("hello")}
@@ -150,12 +182,73 @@ const Navbar = () => {
             style={{ cursor: "pointer", color: "gray" }}
           />
 
-          <BsPerson
-            size={40}
-            onClick={() => console.log("hello")}
-            style={{ cursor: "pointer", color: "gray" }}
-          />
+          <Menu>
+            <MenuButton>
+              <BsPerson
+                size={40}
+                onClick={() => console.log("hello")}
+                style={{ cursor: "pointer", color: "gray" }}
+              />
+            </MenuButton>
+            <MenuList
+              width={"60%"}
+              position={"relative"}
+              left={"17rem"}
+              p={"0.5rem"}
+            >
+              <MenuItem width={"100%"} cursor={"unset"} overflowX={"hidden"}>
+                <Box
+                  textAlign={"center"}
+                  display={"flex"}
+                  flexDirection={"column"}
+                  gap={"1rem"}
+                >
+                  <Image
+                    src="https://a.allegroimg.com/original/34ff27/c479a4f14cf48882cc45615a4b57/thank-you-page-allegro-buy-with-allegro-ba91069bd7"
+                    alt="logo"
+                    margin={"auto"}
+                  />
+                  <Heading>Welcome to Allegro!</Heading>
+                  <Text>
+                    Sign in and see your purchases, favorite offers, and
+                    notifications. On Allegro, you are at home!
+                  </Text>
+                  <Link to="/signin">
+                    <Box
+                      borderRadius={"0.2rem"}
+                      p={"0.5rem"}
+                      backgroundColor={"#FF7B33"}
+                      color={"white"}
+                    >
+                      SIGN IN
+                    </Box>
+                  </Link>
+                  <Text>
+                    First time on Allegro?{" "}
+                    <Link to="/signup" style={{ color: "teal" }}>
+                      Sign up
+                    </Link>
+                  </Text>
+                </Box>
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Box>
+      </Center>
+
+      <Center
+        w={"4rem"}
+        h={"4rem"}
+        borderRadius={"0.5rem"}
+        backgroundColor={"#FF7B33"}
+        position={"absolute"}
+        top={"46rem"}
+        right={"1rem"}
+      >
+        <Image
+          src="https://a.allegroimg.com/original/34c243/da301c81474cabfb3a64e33c88f0/action-common-chat-3be8b9f339"
+          alt="logo"
+        />
       </Center>
     </Box>
   );
