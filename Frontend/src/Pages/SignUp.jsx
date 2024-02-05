@@ -4,8 +4,10 @@ import React from "react";
 const SignUp = () => {
   return (
     <>
-      <Box>
-        <Heading>Create an Account</Heading>
+      <Box backgroundColor={"#ECEFF1"}>
+        <Box>
+          <Heading>Create an Account</Heading>
+        </Box>
       </Box>
     </>
   );

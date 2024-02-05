@@ -91,12 +91,6 @@ const Navbar = () => {
                   style={{ cursor: "pointer", color: "gray" }}
                 />
 
-                <HiOutlineChatAlt2
-                  size={40}
-                  onClick={() => console.log("hello")}
-                  style={{ cursor: "pointer", color: "gray" }}
-                />
-
                 <IoMdNotificationsOutline
                   size={40}
                   onClick={() => console.log("hello")}
@@ -176,12 +170,6 @@ const Navbar = () => {
             style={{ cursor: "pointer", color: "gray" }}
           />
 
-          <HiOutlineChatAlt2
-            size={40}
-            onClick={() => console.log("hello")}
-            style={{ cursor: "pointer", color: "gray" }}
-          />
-
           <IoMdNotificationsOutline
             size={40}
             onClick={() => console.log("hello")}
@@ -205,7 +193,7 @@ const Navbar = () => {
             <MenuList
               width={"60%"}
               position={"relative"}
-              left={"18rem"}
+              left={"17rem"}
               p={"0.5rem"}
             >
               <MenuItem width={"100%"} cursor={"unset"} overflowX={"hidden"}>
@@ -231,7 +219,6 @@ const Navbar = () => {
                       p={"0.5rem"}
                       backgroundColor={"#FF7B33"}
                       color={"white"}
-                      // cursor={"pointer"}
                     >
                       SIGN IN
                     </Box>
@@ -247,6 +234,21 @@ const Navbar = () => {
             </MenuList>
           </Menu>
         </Box>
+      </Center>
+
+      <Center
+        w={"4rem"}
+        h={"4rem"}
+        borderRadius={"0.5rem"}
+        backgroundColor={"#FF7B33"}
+        position={"absolute"}
+        top={"46rem"}
+        right={"1rem"}
+      >
+        <Image
+          src="https://a.allegroimg.com/original/34c243/da301c81474cabfb3a64e33c88f0/action-common-chat-3be8b9f339"
+          alt="logo"
+        />
       </Center>
     </Box>
   );
