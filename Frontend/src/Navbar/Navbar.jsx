@@ -23,7 +23,6 @@ import React, { useRef, useState } from "react";
 import logo from "./Images/logo.png";
 import { TbTruckDelivery } from "react-icons/tb";
 import { IoHeartOutline } from "react-icons/io5";
-import { HiOutlineChatAlt2 } from "react-icons/hi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BsBag, BsPerson } from "react-icons/bs";
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -39,12 +38,12 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   return (
-    <Box border={"1px solid black"}>
+    <Box>
       <Center
         w={"90%"}
         p={2}
         m={"auto"}
-        border={"1px solid red"}
+        // border={"1px solid red"}
         display={"flex"}
         flexDirection={{ base: "column", md: "column", lg: "row", xl: "row" }}
         gap={{ base: "0.1rem", md: "0.5rem", lg: "0", xl: "0" }}
@@ -58,7 +57,9 @@ const Navbar = () => {
           justifyContent={"space-between"}
           w={{ base: "90%", md: "90%", lg: "auto", xl: "auto" }}
         >
-          <Image src={logo} alt="logo" w={"10rem"} />
+          <Link to="/">
+            <Image src={logo} alt="logo" w={"10rem"} />
+          </Link>
           <Button
             ref={btnRef}
             colorScheme="orange"
@@ -130,24 +131,41 @@ const Navbar = () => {
               w={{ base: "18rem", md: "40rem", lg: "18rem", xl: "30rem" }}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              borderRadius={"none"}
             />
             <Box display={"flex"}>
               <Select
                 w={{ base: "10rem", md: "20rem", lg: "10rem", xl: "15rem" }}
                 m={"auto"}
+                borderRadius={"none"}
               >
-                <option>Collections and art</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-                <option>Option 4</option>
-                <option>Option 5</option>
+                <option>All Categories</option>
+                <optgroup label="Categories">
+                  <option>Home and Garden</option>
+                  <option>Kids</option>
+                  <option>Electronics</option>
+                  <option>Business and Services</option>
+                  <option>Collections and Art</option>
+                  <option>Culture and Entertainment</option>
+                  <option>Fashion</option>
+                  <option>Automotive</option>
+                  <option>Real Estate</option>
+                  <option>Sports and Travel</option>
+                  <option>Supermarket</option>
+                  <option>Beauty</option>
+                  <option>Health</option>
+                </optgroup>
+                <optgroup label="Other options">
+                  <option>Sellers</option>
+                </optgroup>
               </Select>
               <Button
                 type="submit"
                 colorScheme="orange"
                 w={{ base: "8rem", md: "10rem", lg: "8rem", xl: "8rem" }}
                 m={"auto"}
+                borderRadius={"none"}
+                backgroundColor={"#FF5A00"}
               >
                 Search
               </Button>
