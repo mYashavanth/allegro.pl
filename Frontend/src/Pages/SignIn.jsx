@@ -4,7 +4,7 @@ import React from "react";
 const SignIn = () => {
     return (
         <>
-            <Box>
+            <Box backgroundColor={"#ECEFF1"}>
                 <Heading>SignIn</Heading>
             </Box>
         </>
