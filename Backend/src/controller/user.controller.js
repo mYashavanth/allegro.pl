@@ -7,9 +7,14 @@ require("dotenv").config();
 
 let userData = {};
 let otp = "";
-const verify = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const { userName, email, password, mobileNumber } = req.body;
+    const user = await User.findOne({ email });
+    if(user){
+      throw new Error("User already exists");
+    }
+
     userData = { userName, email, password, mobileNumber };
     otp = Math.floor(100000 + Math.random() * 900000);
     const transporter = nodemailer.createTransport({
@@ -28,11 +33,11 @@ const verify = async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.status(200).json({ msg: "OTP sent", otp: otp, userData: userData });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(201).json({ error: error.message });
   }
 };
 
-const signup = async (req, res) => {
+const verify = async (req, res) => {
   const { userOtp } = req.body;
   console.log({ otp, userOtp });
   const { userName, email, password, mobileNumber } = userData;
@@ -137,6 +142,6 @@ const logout = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
-}
+};
 
 module.exports = { signup, login, verify, logout };
