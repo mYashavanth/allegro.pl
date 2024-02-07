@@ -262,6 +262,7 @@ const Navbar = () => {
         position={"absolute"}
         top={"46rem"}
         right={"1rem"}
+        display={{ base: "none", md: "none", lg: "flex", xl: "flex" }}
       >
         <Image
           src="https://a.allegroimg.com/original/34c243/da301c81474cabfb3a64e33c88f0/action-common-chat-3be8b9f339"
