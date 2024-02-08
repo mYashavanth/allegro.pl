@@ -11,7 +11,7 @@ const signup = async (req, res) => {
   try {
     const { userName, email, password, mobileNumber } = req.body;
     const user = await User.findOne({ email });
-    if(user){
+    if (user) {
       throw new Error("User already exists");
     }
 
@@ -116,13 +116,13 @@ const login = async (req, res) => {
           httpOnly: true,
           maxAge: 1000 * 60 * 60,
           sameSite: "none",
-          //   secure: true,
+          secure: true,
         });
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 7,
           sameSite: "none",
-          //   secure: true,
+          secure: true,
         });
         res
           .status(200)
