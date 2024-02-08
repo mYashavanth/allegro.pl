@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [show, setShow] = React.useState(false);
@@ -24,6 +25,7 @@ const SignUp = () => {
   const [otp, setOtp] = useState({
     userOtp: "",
   });
+  const navigateTo = useNavigate();
 
   const handleClick = () => setShow(!show);
   const handleChange = (e) => {
@@ -102,7 +104,7 @@ const SignUp = () => {
     );
     console.log(response);
     if (response.status === 200) {
-      setFormChangeFlag(false);
+      navigateTo("/signin");
     }
   }
   const handleOtpSubmit = (e) => {
