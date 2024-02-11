@@ -5,13 +5,23 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 
 const Home = () => {
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, setLoggedIn } = useContext(AuthContext);
 //   const navigateTo = useNavigate();
   const fetchData = async () => {
-    const response = await axios.get("http://localhost:8080/allegroData", {
-      withCredentials: true,
-    });
-    console.log(response);
+    try {
+      const response = await axios.get("http://localhost:8080/allegroData", {
+        withCredentials: true,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        console.log(response.data);
+        setLoggedIn(true);
+      }else{
+        setLoggedIn(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     fetchData();

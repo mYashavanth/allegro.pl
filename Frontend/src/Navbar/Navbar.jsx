@@ -19,7 +19,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import logo from "./Images/logo.png";
 import { TbTruckDelivery } from "react-icons/tb";
 import { IoHeartOutline } from "react-icons/io5";
@@ -27,8 +27,11 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { BsBag, BsPerson } from "react-icons/bs";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
+import axios from "axios";
 
 const Navbar = () => {
+  const { loggedIn, setLoggedIn } = useContext(AuthContext);
   const [search, setSearch] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +40,19 @@ const Navbar = () => {
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
+  const handleLogout = async () => {
+    try {
+      setLoggedIn(false);
+
+      const response = await axios.get("http://localhost:8080/users/logout", {
+        withCredentials: true,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Box>
       <Center
@@ -231,22 +247,34 @@ const Navbar = () => {
                     Sign in and see your purchases, favorite offers, and
                     notifications. On Allegro, you are at home!
                   </Text>
-                  <Link to="/signin">
-                    <Box
-                      borderRadius={"0.2rem"}
-                      p={"0.5rem"}
-                      backgroundColor={"#FF7B33"}
-                      color={"white"}
+                  {loggedIn ? (
+                    <Button
+                      onClick={handleLogout}
+                      colorScheme="orange"
+                      backgroundColor={"#FF5A00"}
                     >
-                      SIGN IN
-                    </Box>
-                  </Link>
-                  <Text>
-                    First time on Allegro?{" "}
-                    <Link to="/signup" style={{ color: "teal" }}>
-                      Sign up
-                    </Link>
-                  </Text>
+                      LOG OUT
+                    </Button>
+                  ) : (
+                    <>
+                      <Link to="/signin">
+                        <Box
+                          borderRadius={"0.2rem"}
+                          p={"0.5rem"}
+                          backgroundColor={"#FF7B33"}
+                          color={"white"}
+                        >
+                          SIGN IN
+                        </Box>
+                      </Link>
+                      <Text>
+                        First time on Allegro?{" "}
+                        <Link to="/signup" style={{ color: "teal" }}>
+                          Sign up
+                        </Link>
+                      </Text>
+                    </>
+                  )}
                 </Box>
               </MenuItem>
             </MenuList>
