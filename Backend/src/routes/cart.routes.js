@@ -15,15 +15,28 @@ cartRouter.get("/", async (req, res) => {
   }
 });
 
-cartRouter.post("/add/:id", async (req, res) => {
+cartRouter.post("/add/:_id", async (req, res) => {
   try {
-    const { id } = req.params;
+    // let  id  = req.params.id;
+    // id = Number(id)
+    const { _id } = req.params;
     const { userID } = req.body;
-    const data = await Products.find({ id });
+    let data = await Products.findOne({ _id });
+    console.log({ data, _id, userID });
     if (!data) {
       throw new Error("Product not found");
     } else {
-      const cartData = new Cart({ ...data, userID: userID });
+      const cartData = new Cart({
+        userID: userID,
+        productId: data._id,
+        name: data.name,
+        price: data.price,
+        image: data.image,
+        category: data.category,
+        shipping: data.shipping,
+        star: data.star,
+      });
+      console.log({ cartData });
       await cartData
         .save()
         .then(() => {
@@ -38,16 +51,16 @@ cartRouter.post("/add/:id", async (req, res) => {
         });
     }
   } catch (error) {
-    res.status(500).json({ error: errro.message });
+    res.status(500).json({ error: error.message });
   }
 });
 
-cartRouter.delete("/delete/:id", async (req, res) => {
+cartRouter.delete("/delete/:_id", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { _id } = req.params;
     const { userID } = req.body;
-    await Cart.deleteOne({ id: id, userID: userID });
-    res.status(200).json({ msg: `data deleted successfully with id ${id}` });
+    await Cart.deleteOne({ _id, userID });
+    res.status(200).json({ msg: `data deleted successfully with id ${_id}` });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
