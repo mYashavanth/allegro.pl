@@ -4,7 +4,8 @@ const connectDB = require("./src/configs/db");
 const userRouter = require("./src/routes/user.routes");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
-const router = require("./src/routes/allegroData.routes");
+const productRouter = require("./src/routes/product.routes");
+const cartRouter = require("./src/routes/cart.routes");
 
 const app = express();
 // server
@@ -22,7 +23,8 @@ app.use(
 
 // routes
 app.use("/users", userRouter)
-app.use("/allegroData", router);
+app.use("/products", productRouter);
+app.use("/carts",cartRouter)
 
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the Allegro Backend!" });
