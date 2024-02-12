@@ -8,6 +8,7 @@ const auth = async (req, res, next) => {
     jwt.verify(authToken, process.env.AUTH_TOKEN, (err, data) => {
       if (data) {
         console.log({ authToken });
+        req.body.userID = data.userID
         next();
       } else {
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, data) => {
@@ -26,6 +27,7 @@ const auth = async (req, res, next) => {
               sameSite: "none",
               //   secure: true,
             });
+            req.body.userID = data.userID;
             next();
           } else {
             throw new Error("Not Authorized");
