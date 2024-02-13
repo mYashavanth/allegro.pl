@@ -9,61 +9,61 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import {useNavigate,Navigate} from "react-router-dom"
+import { useNavigate, Navigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import Loading from "./Loading";
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
-    const {loggedIn,setLoggedIn} = useContext(AuthContext)
-    const [show, setShow] = useState(false);
-    const handleClick = () => setShow(!show);
-    const [userDetails, setUserDetails] = useState({
-        email: "",
-        password: "",
-    })
-    const navigateTo = useNavigate();
-    
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUserDetails((prevUserDetails) => ({
-          ...prevUserDetails,
-          [name]: value,
-        }));
-    }
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(userDetails);
-        try {
-          setLoading(true);
-          const response = await axios.post(
-            "https://dull-colt-gear.cyclic.app/users/login",
-            userDetails,
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-              withCredentials: true,
-            }
-          );
-          console.log(response);
-          if (response.status === 200) {
-            setLoggedIn(true);
-            navigateTo("/");
-          }
-        } catch (error) {
-          console.log(error)
-        } finally {
-          setLoading(false);
-        }
-    }
+  const { loggedIn, setLoggedIn } = useContext(AuthContext);
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+  const [userDetails, setUserDetails] = useState({
+    email: "",
+    password: "",
+  });
+  const navigateTo = useNavigate();
 
-    if(loggedIn){
-      return <Navigate to="/"/>
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetails((prevUserDetails) => ({
+      ...prevUserDetails,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(userDetails);
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "https://dull-colt-gear.cyclic.app/users/login",
+        userDetails,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setLoggedIn(true);
+        navigateTo("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-    if(loading){
-      return <Loading/>
-    }
+  };
+
+  if (loggedIn) {
+    return <Navigate to="/" />;
+  }
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
       <Box backgroundColor={"#ECEFF1"}>
@@ -74,7 +74,6 @@ const SignIn = () => {
         >
           <Text fontSize={"3xl"}>Log in</Text>
           <Box backgroundColor={"white"} padding={"1rem"}>
-
             <form onSubmit={handleSubmit}>
               <Box
                 display={"flex"}
@@ -82,7 +81,6 @@ const SignIn = () => {
                 gap={"2rem"}
                 m={"1rem 0"}
               >
-                
                 <Input
                   type="email"
                   name="email"
@@ -90,7 +88,7 @@ const SignIn = () => {
                   borderRadius={"none"}
                   onChange={handleChange}
                 />
-                
+
                 <InputGroup size="md">
                   <Input
                     pr="4.5rem"
@@ -107,9 +105,8 @@ const SignIn = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-               
               </Box>
-              
+
               <Box display={"flex"} justifyContent={"flex-end"}>
                 <Button
                   type="submit"
@@ -136,7 +133,7 @@ const SignIn = () => {
                   left={{
                     base: "-1rem",
                     md: "-11rem",
-                    lg: "-11rem",
+                    lg: "-8.5rem",
                   }}
                 />
                 CONTINUE WITH GOOGLE
@@ -156,7 +153,7 @@ const SignIn = () => {
                   left={{
                     base: "-0.4rem",
                     md: "-10.5rem",
-                    lg: "-10.5rem",
+                    lg: "-8rem",
                   }}
                 />
                 CONTINUE WITH FACEBOOK
