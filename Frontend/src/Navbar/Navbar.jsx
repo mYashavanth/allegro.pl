@@ -26,13 +26,14 @@ import { IoHeartOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BsBag, BsPerson } from "react-icons/bs";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import axios from "axios";
 
 const Navbar = () => {
   const { loggedIn, setLoggedIn } = useContext(AuthContext);
   const [search, setSearch] = useState("");
+  const navigateTo = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(search);
@@ -42,12 +43,17 @@ const Navbar = () => {
   const btnRef = useRef();
 
   const handleLogout = async () => {
+    location.reload();
     try {
+      onClose();
       setLoggedIn(false);
 
-      const response = await axios.get("http://localhost:8080/users/logout", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "https://dull-colt-gear.cyclic.app/users/logout",
+        {
+          withCredentials: true,
+        }
+      );
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -116,15 +122,84 @@ const Navbar = () => {
 
                 <BsBag
                   size={35}
-                  onClick={() => console.log("hello")}
+                  onClick={() => {
+                    navigateTo("/cart");
+                    onClose();
+                  }}
                   style={{ cursor: "pointer", color: "gray" }}
                 />
 
-                <BsPerson
-                  size={40}
-                  onClick={() => console.log("hello")}
-                  style={{ cursor: "pointer", color: "gray" }}
-                />
+                <Menu>
+                  <MenuButton>
+                    <BsPerson
+                      size={40}
+                      onClick={() => console.log("hello")}
+                      style={{ cursor: "pointer", color: "gray" }}
+                    />
+                  </MenuButton>
+                  <MenuList
+                    width={"60%"}
+                    position={"relative"}
+                    left={"17rem"}
+                    p={"0.5rem"}
+                  >
+                    <MenuItem
+                      width={"100%"}
+                      cursor={"unset"}
+                      overflowX={"hidden"}
+                    >
+                      <Box
+                        textAlign={"center"}
+                        display={"flex"}
+                        flexDirection={"column"}
+                        gap={"1rem"}
+                      >
+                        <Image
+                          src="https://a.allegroimg.com/original/34ff27/c479a4f14cf48882cc45615a4b57/thank-you-page-allegro-buy-with-allegro-ba91069bd7"
+                          alt="logo"
+                          margin={"auto"}
+                        />
+                        <Heading>Welcome to Allegro!</Heading>
+                        <Text>
+                          Sign in and see your purchases, favorite offers, and
+                          notifications. On Allegro, you are at home!
+                        </Text>
+                        {loggedIn ? (
+                          <Button
+                            onClick={handleLogout}
+                            colorScheme="orange"
+                            backgroundColor={"#FF5A00"}
+                          >
+                            LOG OUT
+                          </Button>
+                        ) : (
+                          <>
+                            <Link to="/signin" onClick={onClose}>
+                              <Box
+                                borderRadius={"0.2rem"}
+                                p={"0.5rem"}
+                                backgroundColor={"#FF7B33"}
+                                color={"white"}
+                              >
+                                SIGN IN
+                              </Box>
+                            </Link>
+                            <Text>
+                              First time on Allegro?{" "}
+                              <Link
+                                to="/signup"
+                                style={{ color: "teal" }}
+                                onClick={onClose}
+                              >
+                                Sign up
+                              </Link>
+                            </Text>
+                          </>
+                        )}
+                      </Box>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               </DrawerBody>
             </DrawerContent>
           </Drawer>
@@ -212,7 +287,7 @@ const Navbar = () => {
 
           <BsBag
             size={35}
-            onClick={() => console.log("hello")}
+            onClick={() => navigateTo("/cart")}
             style={{ cursor: "pointer", color: "gray" }}
           />
 
@@ -281,6 +356,28 @@ const Navbar = () => {
           </Menu>
         </Box>
       </Center>
+      <Box
+        border={"1px solid gray"}
+        p={"0.5rem"}
+        m={"0.5rem"}
+        display={"flex"}
+        gap={"3rem"}
+        justifyContent={"space-evenly"}
+      >
+        <Text
+          _hover={{ color: "teal", cursor: "pointer" }}
+          onClick={() => navigateTo("/products")}
+        >
+          Products
+        </Text>
+        <Box display={"flex"} gap={"1rem"}>
+          <Text _hover={{ color: "teal" }}>Gwarancja najniższej ceny</Text>
+          <Text _hover={{ color: "teal" }}>Strefa Okazji</Text>
+          <Text _hover={{ color: "teal" }}>Sprzedawaj na Allegro</Text>
+          <Text _hover={{ color: "teal" }}>Premiery</Text>
+          <Text _hover={{ color: "teal" }}>Allegro Inspiruje</Text>
+        </Box>
+      </Box>
 
       <Center
         w={"4rem"}

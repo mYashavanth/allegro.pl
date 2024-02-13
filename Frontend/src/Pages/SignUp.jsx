@@ -12,8 +12,10 @@ import {
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
   const [show, setShow] = React.useState(false);
   const [userDetails, setUserDetails] = useState({
     userName: "",
@@ -53,23 +55,30 @@ const SignUp = () => {
     }));
   };
   const fetchData = async () => {
-    const response = await axios.post(
-      "http://localhost:8080/users/signup",
-      userDetails,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-    );
-    console.log(response);
-    if (response.status === 200) {
-      setFormChangeFlag(true);
-    }
-    if(response.data.error === "User already exists"){
-      alert("User already exists");
-    }
+    try {
+     setLoading(true);
+     const response = await axios.post(
+       "https://dull-colt-gear.cyclic.app/users/signup",
+       userDetails,
+       {
+         headers: {
+           "Content-Type": "application/json",
+         },
+         withCredentials: true,
+       }
+     );
+     console.log(response);
+     if (response.status === 200) {
+       setFormChangeFlag(true);
+     }
+     if (response.data.error === "User already exists") {
+       alert("User already exists");
+     }
+   } catch (error) {
+     console.log(error);
+   } finally {
+     setLoading(false);
+   }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -93,7 +102,7 @@ const SignUp = () => {
   };
   const fetchOtpData = async () => {
     const response = await axios.post(
-      "http://localhost:8080/users/verify",
+      "https://dull-colt-gear.cyclic.app/users/verify",
       otp,
       {
         headers: {
@@ -112,6 +121,9 @@ const SignUp = () => {
     console.log(otp);
     fetchOtpData();
   };
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
