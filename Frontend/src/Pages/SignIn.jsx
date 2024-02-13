@@ -11,8 +11,10 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import {useNavigate,Navigate} from "react-router-dom"
 import { AuthContext } from "../Context/AuthContext";
+import Loading from "./Loading";
 
 const SignIn = () => {
+  const [loading, setLoading] = useState(false);
     const {loggedIn,setLoggedIn} = useContext(AuthContext)
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
@@ -32,26 +34,35 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(userDetails);
-        const response = await axios.post(
-          "http://localhost:8080/users/login",
-          userDetails,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
+        try {
+          setLoading(true);
+          const response = await axios.post(
+            "https://dull-colt-gear.cyclic.app/users/login",
+            userDetails,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+          console.log(response);
+          if (response.status === 200) {
+            setLoggedIn(true);
+            navigateTo("/");
           }
-        );
-        console.log(response);
-        if (response.status === 200) {
-          setLoggedIn(true);
-          navigateTo("/")
-          
+        } catch (error) {
+          console.log(error)
+        } finally {
+          setLoading(false);
         }
     }
 
     if(loggedIn){
       return <Navigate to="/"/>
+    }
+    if(loading){
+      return <Loading/>
     }
   return (
     <>
