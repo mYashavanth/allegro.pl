@@ -1,9 +1,10 @@
-import { Box, Heading, Button, Image } from "@chakra-ui/react";
+import { Box, Heading, Button, Image, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import Slider from "react-slick";
+import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 
 // Import slick styles
 import "slick-carousel/slick/slick.css";
@@ -21,6 +22,12 @@ const Home = () => {
     autoplaySpeed: 2000,
   };
 
+  const displayData = [
+    {
+      img: "https://a.allegroimg.com/s80/127d5a/b7255ce34174bdd079b18e1ce521",
+      name: "Collect Coins",
+    },
+  ];
   const sliderRef = React.useRef(null);
 
   const goToNext = () => {
@@ -31,22 +38,33 @@ const Home = () => {
     sliderRef.current.slickPrev();
   };
 
-  if (!loggedIn) {
-    return <Navigate to="/signin" />;
-  }
+  // if (!loggedIn) {
+  //   return <Navigate to="/signin" />;
+  // }
+  const fetchData = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/products");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <Box backgroundColor={"#ECEFF1"}>
-      <Heading>Home</Heading>
+    <Box backgroundColor={"#ECEFF1"} p={"1rem"}>
       <Box
         w={"95%"}
         m={"auto"}
         mt={10}
         position="relative"
-        border={"1px solid red"}
-        // aspectRatio={"3/2"}
+        height={"380px"}
+        backgroundColor={"white"}
+        p={"0.5rem"}
       >
         <Slider ref={sliderRef} {...settings}>
-          {/* Repeat this for each image */}
           <Box>
             <Image
               src="https://a.allegroimg.com/original/12ef07/6ee08fb645398f5cb2caa5c1729a"
@@ -65,12 +83,6 @@ const Home = () => {
               alt="slide"
             />
           </Box>
-          {/* <Box>
-            <Image src="https://via.placeholder.com/800x400" alt="slide" />
-          </Box>
-          <Box>
-            <Image src="https://via.placeholder.com/800x400" alt="slide" />
-          </Box> */}
         </Slider>
         <Button
           position="absolute"
@@ -79,7 +91,7 @@ const Home = () => {
           transform="translateY(-50%)"
           onClick={goToPrevious}
         >
-          Previous
+          <MdArrowBackIos />
         </Button>
         <Button
           position="absolute"
@@ -88,8 +100,15 @@ const Home = () => {
           transform="translateY(-50%)"
           onClick={goToNext}
         >
-          Next
+          <MdArrowForwardIos />
         </Button>
+      </Box>
+      <Box>
+        <Image
+          src={displayData[0].img}
+          alt="slide"
+        />
+        <Text>{displayData[0].name}</Text>
       </Box>
     </Box>
   );

@@ -8,6 +8,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   Heading,
   Image,
   Input,
@@ -60,7 +61,15 @@ const Navbar = () => {
     }
   };
   return (
-    <Box>
+    <Flex
+      flexDirection={"column"}
+      backgroundColor={"white"}
+      // border={"1px solid red"}
+      position={"sticky"}
+      top={0}
+      zIndex={99}
+      boxShadow={"md"}
+    >
       <Center
         w={"90%"}
         p={2}
@@ -70,9 +79,6 @@ const Navbar = () => {
         flexDirection={{ base: "column", md: "column", lg: "row", xl: "row" }}
         gap={{ base: "0.1rem", md: "0.5rem", lg: "0", xl: "0" }}
         justifyContent={"space-between"}
-        position={"sticky"}
-        top={0}
-        zIndex={99}
       >
         <Center
           display={"flex"}
@@ -394,7 +400,7 @@ const Navbar = () => {
           alt="logo"
         />
       </Center>
-    </Box>
+    </Flex>
   );
 };
 
