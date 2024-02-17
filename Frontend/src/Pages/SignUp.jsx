@@ -102,7 +102,7 @@ const SignUp = () => {
   };
   const fetchOtpData = async () => {
     const response = await axios.post(
-      "https://dull-colt-gear.cyclic.app/users/verify",
+      "http://localhost:8080/users/verify",
       otp,
       {
         headers: {
