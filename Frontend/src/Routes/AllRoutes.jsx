@@ -6,6 +6,8 @@ import SignIn from "../Pages/SignIn";
 import Home from "../Pages/Home";
 import Products from "../Pages/Products";
 import Cart from "../Pages/Cart";
+import SearchData from "../Pages/SearchData";
+import SingleProduct from "../Pages/SingleProduct";
 
 const AllRoutes = () => {
     return (
@@ -15,6 +17,8 @@ const AllRoutes = () => {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/searchdata" element={<SearchData />} />
+            <Route path="/singleproduct/:_id" element={<SingleProduct/>} />
         </Routes>
     );
 }

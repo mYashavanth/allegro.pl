@@ -8,6 +8,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   Heading,
   Image,
   Input,
@@ -29,16 +30,38 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import axios from "axios";
+import Loading from "../Pages/Loading";
 
 const Navbar = () => {
-  const { loggedIn, setLoggedIn } = useContext(AuthContext);
+  const { loggedIn, setLoggedIn, searchData, setSearchData } =
+    useContext(AuthContext);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigateTo = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(search);
+    fetchSearchData();
     setSearch("");
   };
+  async function fetchSearchData() {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `http://localhost:8080/products/`,
+        { inputData: search },
+        { withCredentials: true }
+      );
+      console.log(res.data);
+      setSearchData(res.data);
+      navigateTo("/searchdata");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
@@ -48,19 +71,27 @@ const Navbar = () => {
       onClose();
       setLoggedIn(false);
 
-      const response = await axios.get(
-        "https://dull-colt-gear.cyclic.app/users/logout",
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.get("http://localhost:8080/users/logout", {
+        withCredentials: true,
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
+  if (loading) {
+    return <Loading />;
+  }
   return (
-    <Box>
+    <Flex
+      flexDirection={"column"}
+      backgroundColor={"white"}
+      // border={"1px solid red"}
+      position={"sticky"}
+      top={0}
+      zIndex={99}
+      boxShadow={"md"}
+    >
       <Center
         w={"90%"}
         p={2}
@@ -70,9 +101,6 @@ const Navbar = () => {
         flexDirection={{ base: "column", md: "column", lg: "row", xl: "row" }}
         gap={{ base: "0.1rem", md: "0.5rem", lg: "0", xl: "0" }}
         justifyContent={"space-between"}
-        position={"sticky"}
-        top={0}
-        zIndex={99}
       >
         <Center
           display={"flex"}
@@ -394,7 +422,7 @@ const Navbar = () => {
           alt="logo"
         />
       </Center>
-    </Box>
+    </Flex>
   );
 };
 
