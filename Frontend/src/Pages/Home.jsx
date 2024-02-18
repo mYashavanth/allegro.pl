@@ -111,7 +111,7 @@ const Home = () => {
         m={"auto"}
         mt={10}
         position="relative"
-        height={"380px"}
+        height={{ base: "150px", md: "240px", lg: "320px", xl: "380px" }}
         backgroundColor={"white"}
         p={"0.5rem"}
       >
@@ -162,6 +162,7 @@ const Home = () => {
         display={"flex"}
         gap={"1rem"}
         // border={"1px solid black"}
+        flexWrap={"wrap"}
         p={"1rem"}
         w={"95%"}
         m={"auto"}
@@ -170,7 +171,12 @@ const Home = () => {
       >
         {displayData.map((item) => {
           return (
-            <Box width={"8%"} p={"0.5rem"} key={item.name} textAlign={"center"}>
+            <Box
+              width={{ base: "40%", md: "30%", lg: "15%", xl: "8%" }}
+              p={"0.5rem"}
+              key={item.name}
+              textAlign={"center"}
+            >
               <Image src={item.img} alt="slide" m={"auto"} />
               <Text>{item.name}</Text>
             </Box>

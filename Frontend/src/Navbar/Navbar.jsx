@@ -388,13 +388,13 @@ const Navbar = () => {
         border={"1px solid gray"}
         p={"0.5rem"}
         m={"0.5rem"}
-        display={"flex"}
+        display={{ base: "none", md: "flex", lg: "flex", xl: "flex" }}
         gap={"3rem"}
         justifyContent={"space-evenly"}
       >
         <Text
           _hover={{ color: "teal", cursor: "pointer" }}
-          onClick={() => navigateTo("/products")}
+          onClick={() => {navigateTo("/"); window.scrollTo({ top: 0, behavior: "smooth" });}}
         >
           Products
         </Text>

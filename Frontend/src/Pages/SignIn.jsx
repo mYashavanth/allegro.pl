@@ -59,7 +59,7 @@ const SignIn = () => {
   };
 
   if (loggedIn) {
-    return <Navigate to="/" />;
+    return <Navigate to="/cart" />;
   }
   if (loading) {
     return <Loading />;

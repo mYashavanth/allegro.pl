@@ -65,8 +65,19 @@ cartRouter.delete("/delete/:_id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+cartRouter.delete("/deleteMany/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userID } = req.body;
+    await Cart.deleteMany({ productId: id, userID });
+    res.status(200).json({ msg: `data deleted successfully` });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+  
+})
 
-cartRouter.delete("/delete", async (req, res) => {
+cartRouter.delete("/deleteAll", async (req, res) => {
   try {
     const { userID } = req.body;
     await Cart.deleteMany({ userID });
