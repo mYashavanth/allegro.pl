@@ -156,7 +156,7 @@ const Cart = () => {
             flexDirection={"column"}
             bgColor={"white"}
             p={"1rem"}
-            border={"1px solid gray"}
+            // border={"1px solid gray"}
             h={"20rem"}
           >
             <Box
@@ -179,7 +179,7 @@ const Cart = () => {
                   <Text fontSize={"1.3rem"}>Including delivery</Text>
                   <Text fontSize={"1.5rem"}>
                     {" "}
-                    {+totalAmount.toFixed(2) + 8.99}{" "}
+                    {(+totalAmount + 8.99).toFixed(2)}{" "}
                     <span style={{ color: "teal", fontSize: "0.8em" }}>
                       PLN
                     </span>
