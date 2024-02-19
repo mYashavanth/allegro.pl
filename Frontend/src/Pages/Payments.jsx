@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
+import axios from "axios";
 
 const Payments = () => {
   const { products } = useContext(AuthContext);
@@ -21,11 +22,34 @@ const Payments = () => {
     cardName: "",
     focus: "",
   });
+  const DeleteAllData = async () => {
+    try {
+      const res = await axios.delete("http://localhost:8080/carts/deleteAll", {
+        withCredentials: true,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
     window.alert("Payment Successful");
-    console.log(formData);
+    const data = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      country: formData.country,
+      pincode: formData.pincode,
+      products: products,
+    };
+    console.log(data);
+    DeleteAllData();
+
     setFormData({
       name: "",
       email: "",
@@ -63,6 +87,7 @@ const Payments = () => {
             gap={"1rem"}
             flexDirection={"column"}
           >
+            <Heading fontSize={"1.5rem"}>Details</Heading>
             <Input
               type="text"
               name="name"
@@ -70,6 +95,8 @@ const Payments = () => {
               placeholder="Name"
               onChange={handleChange}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
             <Input
               type="email"
@@ -78,6 +105,8 @@ const Payments = () => {
               placeholder="Email"
               onChange={handleChange}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
             <Input
               type="number"
@@ -88,6 +117,8 @@ const Payments = () => {
               onChange={handleChange}
               max={"9999999999"}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
             <Input
               type="text"
@@ -96,6 +127,8 @@ const Payments = () => {
               placeholder="Address"
               onChange={handleChange}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
             <Input
               type="text"
@@ -104,6 +137,8 @@ const Payments = () => {
               placeholder="City"
               onChange={handleChange}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
             <Input
               type="text"
@@ -112,6 +147,8 @@ const Payments = () => {
               placeholder="State"
               onChange={handleChange}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
             <Input
               type="text"
@@ -120,6 +157,8 @@ const Payments = () => {
               placeholder="Country"
               onChange={handleChange}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
             <Input
               type="text"
@@ -128,8 +167,10 @@ const Payments = () => {
               placeholder="Pincode"
               onChange={handleChange}
               required
+              border={"1px solid black"}
+              borderRadius={"none"}
             />
-            <Box>
+            <Box display={"flex"} flexDirection={"column"} gap={"1rem"}>
               <Heading fontSize={"1.5rem"}>Payment</Heading>
               <Cards
                 number={formData.number}
@@ -146,6 +187,8 @@ const Payments = () => {
                 onFocus={handleInputFocus}
                 value={formData.number}
                 required
+                border={"1px solid black"}
+                borderRadius={"none"}
               />
               <Input
                 type="text"
@@ -155,6 +198,8 @@ const Payments = () => {
                 onFocus={handleInputFocus}
                 value={formData.cardName}
                 required
+                border={"1px solid black"}
+                borderRadius={"none"}
               />
               <Input
                 type="text"
@@ -164,6 +209,8 @@ const Payments = () => {
                 onFocus={handleInputFocus}
                 value={formData.expiry}
                 required
+                border={"1px solid black"}
+                borderRadius={"none"}
               />
               <Input
                 type="number"
@@ -173,9 +220,18 @@ const Payments = () => {
                 onFocus={handleInputFocus}
                 value={formData.cvc}
                 required
+                border={"1px solid black"}
+                borderRadius={"none"}
               />
             </Box>
-            <Button type="submit">Submit</Button>
+            <Button
+              type="submit"
+              colorScheme="orange"
+              backgroundColor={"#FF5A00"}
+              borderRadius={"none"}
+            >
+              Submit
+            </Button>
           </Box>
         </form>
       </Box>
