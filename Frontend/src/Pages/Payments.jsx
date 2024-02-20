@@ -24,9 +24,12 @@ const Payments = () => {
   });
   const DeleteAllData = async () => {
     try {
-      const res = await axios.delete("http://localhost:8080/carts/deleteAll", {
-        withCredentials: true,
-      });
+      const res = await axios.delete(
+        "https://dull-colt-gear.cyclic.app/carts/deleteAll",
+        {
+          withCredentials: true,
+        }
+      );
       console.log(res);
     } catch (error) {
       console.log(error);

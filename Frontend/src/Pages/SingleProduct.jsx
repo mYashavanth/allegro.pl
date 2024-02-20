@@ -14,7 +14,8 @@ export default function SingleProduct() {
   async function addToCart(id) {
     try {
       const res = await axios.post(
-        `http://localhost:8080/carts/add/${id}`,{},
+        `https://dull-colt-gear.cyclic.app/carts/add/${id}`,
+        {},
         { withCredentials: true }
       );
       console.log({res});
