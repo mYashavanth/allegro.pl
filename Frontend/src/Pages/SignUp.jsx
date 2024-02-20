@@ -58,7 +58,7 @@ const SignUp = () => {
     try {
      setLoading(true);
      const response = await axios.post(
-       "https://dull-colt-gear.cyclic.app/users/signup",
+       "http://localhost:8080/users/signup",
        userDetails,
        {
          headers: {
@@ -113,6 +113,7 @@ const SignUp = () => {
     );
     console.log(response);
     if (response.status === 200) {
+      alert("OTP Verified Successfully Your Account has been created");
       navigateTo("/signin");
     }
   }
