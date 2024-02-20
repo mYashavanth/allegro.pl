@@ -1,22 +1,23 @@
 import { Box, Button, Center, Heading, Image, Text } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import axios from "axios";
 
 export default function SingleProduct() {
+  const navigateTo = useNavigate();
   const { _id } = useParams();
-  const { productData } = useContext(AuthContext);
+  const { productData, loggedIn } = useContext(AuthContext);
   console.log({ _id });
   let data = productData.find((item) => item._id === _id);
-  console.log(data);
+  console.log({data});
   async function addToCart(id) {
     try {
       const res = await axios.post(
         `http://localhost:8080/carts/add/${id}`,{},
         { withCredentials: true }
       );
-      console.log(res);
+      console.log({res});
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +71,7 @@ export default function SingleProduct() {
                 colorScheme="orange"
                 backgroundColor={"#FF5A00"}
                 borderRadius={"none"}
-                onClick={()=> addToCart (data._id)} 
+                onClick={()=> loggedIn?addToCart (data?._id):navigateTo("/signin")} 
               >
                 ADD TO CART
               </Button>
