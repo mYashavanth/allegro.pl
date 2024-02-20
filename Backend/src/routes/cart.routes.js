@@ -8,7 +8,8 @@ cartRouter.use(auth);
 
 cartRouter.get("/", async (req, res) => {
   try {
-    const data = await Cart.find({ userId: req.userId });
+    const { userID } = req.body;
+    const data = await Cart.find({ userID });
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -74,8 +75,7 @@ cartRouter.delete("/deleteMany/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-  
-})
+});
 
 cartRouter.delete("/deleteAll", async (req, res) => {
   try {
@@ -85,6 +85,6 @@ cartRouter.delete("/deleteAll", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-})
+});
 
 module.exports = cartRouter;
