@@ -52,8 +52,8 @@ const Navbar = () => {
         { inputData: search },
         { withCredentials: true }
       );
-      console.log(res.data);
-      setSearchData(res.data);
+      // console.log(res.data);
+      setSearchData(res?.data);
       navigateTo("/searchdata");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {

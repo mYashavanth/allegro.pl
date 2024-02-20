@@ -10,14 +10,14 @@ export default function SingleProduct() {
   const { productData, loggedIn } = useContext(AuthContext);
   console.log({ _id });
   let data = productData.find((item) => item._id === _id);
-  console.log(data);
+  console.log({data});
   async function addToCart(id) {
     try {
       const res = await axios.post(
         `http://localhost:8080/carts/add/${id}`,{},
         { withCredentials: true }
       );
-      console.log(res);
+      console.log({res});
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +71,7 @@ export default function SingleProduct() {
                 colorScheme="orange"
                 backgroundColor={"#FF5A00"}
                 borderRadius={"none"}
-                onClick={()=> loggedIn?addToCart (data._id):navigateTo("/signin")} 
+                onClick={()=> loggedIn?addToCart (data?._id):navigateTo("/signin")} 
               >
                 ADD TO CART
               </Button>
