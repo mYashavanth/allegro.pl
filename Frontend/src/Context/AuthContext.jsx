@@ -7,6 +7,7 @@ export default function AuthContextProvider({ children }) {
   const [productData, setProductData] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [products, setProducts] = useState([]);
+  const [totalAmountToPay, setTotalAmountToPay] = useState(0);
 
 
   return (
@@ -20,6 +21,8 @@ export default function AuthContextProvider({ children }) {
         setSearchData,
         products,
         setProducts,
+        totalAmountToPay,
+        setTotalAmountToPay,
       }}
     >
       {children}

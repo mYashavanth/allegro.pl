@@ -6,7 +6,7 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import axios from "axios";
 
 const Payments = () => {
-  const { products } = useContext(AuthContext);
+  const { products, setProducts,totalAmountToPay, setTotalAmountToPay } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,6 +46,7 @@ const Payments = () => {
       country: formData.country,
       pincode: formData.pincode,
       products: products,
+      totalAmountToPay: totalAmountToPay+"PLN"
     };
     console.log(data);
     DeleteAllData();
@@ -65,6 +66,8 @@ const Payments = () => {
       cardName: "",
       focus: "",
     });
+    setProducts([]);
+    setTotalAmountToPay(0);
   };
   const handleChange = (e) => {
     setFormData({

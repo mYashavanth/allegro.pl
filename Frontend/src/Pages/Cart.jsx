@@ -8,7 +8,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import Loading from "./Loading";
 
 const Cart = () => {
-  const { loggedIn, setLoggedIn, products, setProducts } =
+  const { loggedIn, setLoggedIn, products, setProducts, totalAmountToPay , setTotalAmountToPay} =
     useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigateTo = useNavigate();
@@ -192,6 +192,7 @@ const Cart = () => {
                   w={"100%"}
                   onClick={() => {
                     navigateTo("/payments");
+                    setTotalAmountToPay(totalAmount + 8.99);
                     window.scrollTo(0, 0);
                   }}
                 >
