@@ -48,7 +48,7 @@ const Navbar = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `http://localhost:8080/products/`,
+        `https://dull-colt-gear.cyclic.app/products/`,
         { inputData: search },
         { withCredentials: true }
       );
@@ -71,7 +71,7 @@ const Navbar = () => {
       onClose();
       setLoggedIn(false);
 
-      const response = await axios.get("http://localhost:8080/users/logout", {
+      const response = await axios.get("https://dull-colt-gear.cyclic.app/users/logout", {
         withCredentials: true,
       });
       console.log(response);

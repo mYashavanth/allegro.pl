@@ -19,7 +19,7 @@ const Cart = () => {
   async function fetchCartData() {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:8080/carts", {
+      const res = await axios.get("https://dull-colt-gear.cyclic.app/carts", {
         withCredentials: true,
       });
       // console.log(res.data);
@@ -36,7 +36,7 @@ const Cart = () => {
   async function deleteData(id) {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:8080/carts/delete/${id}`, {
+      await axios.delete(`https://dull-colt-gear.cyclic.app/carts/delete/${id}`, {
         withCredentials: true,
       });
       fetchCartData();
@@ -50,7 +50,7 @@ const Cart = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `http://localhost:8080/carts/add/${id}`,
+        `https://dull-colt-gear.cyclic.app/carts/add/${id}`,
         {},
         {
           withCredentials: true,
@@ -68,7 +68,7 @@ const Cart = () => {
     try {
       setLoading(true);
       const res = await axios.delete(
-        `http://localhost:8080/carts/deleteMany/${id}`,
+        `https://dull-colt-gear.cyclic.app/carts/deleteMany/${id}`,
         {
           withCredentials: true,
         }

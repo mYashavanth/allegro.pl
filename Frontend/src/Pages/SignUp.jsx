@@ -58,7 +58,7 @@ const SignUp = () => {
     try {
      setLoading(true);
      const response = await axios.post(
-       "http://localhost:8080/users/signup",
+       "https://dull-colt-gear.cyclic.app/users/signup",
        userDetails,
        {
          headers: {
@@ -102,7 +102,7 @@ const SignUp = () => {
   };
   const fetchOtpData = async () => {
     const response = await axios.post(
-      "http://localhost:8080/users/verify",
+      "https://dull-colt-gear.cyclic.app/users/verify",
       otp,
       {
         headers: {

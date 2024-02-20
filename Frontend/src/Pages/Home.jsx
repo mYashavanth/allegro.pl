@@ -92,7 +92,9 @@ const Home = () => {
   // }
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/products");
+      const response = await axios.post(
+        "https://dull-colt-gear.cyclic.app/products"
+      );
       // console.log(response);
       setProductData(response.data);
     } catch (error) {
