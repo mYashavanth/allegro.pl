@@ -16,7 +16,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:8008", "*", "http://localhost:5173"],
+    origin: [
+      "http://localhost:8008",
+      "*",
+      "http://localhost:5173",
+      "https://allegro-pl.vercel.app",
+    ],
     credentials: true,
   })
 );
