@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import Loading from "./Loading";
 
@@ -159,6 +159,17 @@ const SignIn = () => {
                 CONTINUE WITH FACEBOOK
               </Button>
             </form>
+          </Box>
+          <Box bgColor={"white"} mt={"1rem"} p={"1rem"} borderRadius={"none"}>
+            <Text>
+              <b>First time on Allegro?</b>{" "}
+              <Link
+                to="/signup"
+                style={{ color: "teal" }}
+              >
+                CREATE AN ACCOUNT
+              </Link>
+            </Text>
           </Box>
         </Box>
       </Box>

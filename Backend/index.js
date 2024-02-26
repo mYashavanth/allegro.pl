@@ -20,6 +20,7 @@ app.use(
       "http://localhost:8008",
       "*",
       "http://localhost:5173",
+      "http://localhost:5174",
       "https://allegro-pl.vercel.app",
     ],
     credentials: true,
@@ -27,9 +28,9 @@ app.use(
 );
 
 // routes
-app.use("/users", userRouter)
+app.use("/users", userRouter);
 app.use("/products", productRouter);
-app.use("/carts",cartRouter)
+app.use("/carts", cartRouter);
 
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to the Allegro Backend!" });
